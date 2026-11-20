@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Batalha de Arquitetura</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <header class="topo">
+      <h1>Batalha de Arquitetura</h1>
+      <p class="contador">Derrotados: <strong id="derrotados">0</strong> de <strong id="total">16</strong></p>
+    </header>
+
+    <section class="painel inimigo">
+      <div class="linha-topo">
+        <span class="rotulo">Inimigo</span>
+        <span id="tipo-inimigo" class="tipo">Tipo: ?</span>
+      </div>
+      <div class="avatar" id="avatar-inimigo" aria-hidden="true">?</div>
+      <p class="nome-oculto">???</p>
+      <p class="instrucao">Qual criatura do seu time derrota este inimigo?</p>
+      <div class="barra" role="progressbar" aria-label="Vida do inimigo">
+        <div class="barra-vida" id="vida-inimigo"></div>
+      </div>
+      <p id="pista" class="pista" hidden></p>
+      <button id="btn-pista" class="botao secundario" type="button">Revelar pista (−10 HP)</button>
+    </section>
+
+    <section class="painel time">
+      <div class="linha-topo">
+        <span class="rotulo">Seu time</span>
+        <span id="vida-jogador-texto" class="tipo">HP 100</span>
+      </div>
+      <div class="barra" role="progressbar" aria-label="Sua vida">
+        <div class="barra-vida jogador" id="vida-jogador"></div>
+      </div>
+      <div id="opcoes" class="opcoes"></div>
+      <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
+      <p class="pontos">Pontos: <strong id="pontos">0</strong></p>
+    </section>
+
+    <div class="acoes">
+      <button id="btn-reiniciar" class="botao" type="button">Reiniciar</button>
+    </div>
+
+    <dialog id="fim" class="fim">
+      <h2 id="fim-titulo"></h2>
+      <p id="fim-texto"></p>
+      <button id="fim-reiniciar" class="botao" type="button">Jogar de novo</button>
+    </dialog>
+  </main>
+  <script src="termos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
