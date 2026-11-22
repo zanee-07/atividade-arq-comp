@@ -16,10 +16,10 @@
       <p class="placar">Derrotados <strong id="derrotados">0</strong>/<strong id="total">16</strong> · Pontos <strong id="pontos">0</strong></p>
     </header>
 
-    <section class="campo" aria-label="Campo de batalha">
+    <section class="campo" id="campo" aria-label="Campo de batalha">
       <div class="info info-inimigo">
         <div class="info-linha">
-          <span id="nome-inimigo" class="nome-oculto">???</span>
+          <span class="nome-oculto">???</span>
           <span id="tipo-inimigo" class="tipo">Tipo: ?</span>
         </div>
         <div class="info-hp">
@@ -31,13 +31,14 @@
       </div>
 
       <div class="plataforma plataforma-inimigo" aria-hidden="true"></div>
-      <div class="avatar" id="avatar-inimigo" aria-hidden="true">?</div>
+      <div class="sprite sprite-inimigo" id="sprite-inimigo" aria-hidden="true"></div>
 
       <div class="plataforma plataforma-jogador" aria-hidden="true"></div>
+      <div class="sprite sprite-jogador" id="sprite-jogador" aria-hidden="true"></div>
 
       <div class="info info-jogador">
         <div class="info-linha">
-          <span class="nome-jogador">Você</span>
+          <span id="nome-jogador" class="nome-jogador">Seu time</span>
           <span id="vida-jogador-texto" class="hp-numeros">HP 100</span>
         </div>
         <div class="info-hp">
@@ -50,8 +51,7 @@
     </section>
 
     <section class="base" aria-label="Painel de escolhas">
-      <div class="caixa-texto">
-        <p class="instrucao">Qual criatura do seu time derrota este inimigo?</p>
+      <div class="caixa-texto" id="caixa-texto">
         <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
         <p id="pista" class="pista" hidden></p>
         <button id="btn-pista" class="botao-pista" type="button">Revelar pista (−10 HP)</button>

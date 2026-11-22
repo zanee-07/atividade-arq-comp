@@ -1,4 +1,4 @@
-/* Estilo inspirado nas telas de batalha clássicas: campo, caixas de status e painel de comandos. */
+/* Estilo inspirado nas telas de batalha clássicas: campo, criaturas, caixas de status e diálogo. */
 :root {
   --sky-1: #a8e4ff;
   --sky-2: #d9f6ff;
@@ -6,6 +6,7 @@
   --grass-2: #5fb246;
   --grass-dark: #3f8a2c;
   --ink: #2f2f3a;
+  --ink-deep: #1a1a24;
   --ink-soft: #5b5f73;
   --paper: #f8f8f0;
   --blue-border: #3c5aa6;
@@ -86,7 +87,7 @@ h1 {
 .plataforma-inimigo {
   width: 200px;
   height: 50px;
-  top: 92px;
+  top: 150px;
   right: 40px;
 }
 
@@ -97,35 +98,94 @@ h1 {
   left: 20px;
 }
 
-.avatar {
+/* ---------- Criaturas ---------- */
+.sprite {
   position: absolute;
-  top: 46px;
-  right: 80px;
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-family: var(--pixel);
-  font-size: 44px;
-  color: var(--paper);
-  background: var(--tipo-memoria);
-  border: 4px solid var(--ink);
-  box-shadow: inset -10px -10px 0 rgba(0, 0, 0, 0.18), 0 6px 0 rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
-.avatar.derrotado { transform: scale(0.5) translateY(30px); opacity: 0; }
-.avatar.tremer { animation: tremer 0.4s; }
-.avatar.tipo-processamento { background: var(--tipo-processamento); }
-.avatar.tipo-memoria { background: var(--tipo-memoria); }
-.avatar.tipo-armazenamento { background: var(--tipo-armazenamento); }
-.avatar.tipo-comunicacao { background: var(--tipo-comunicacao); }
+.sprite svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
 
-@keyframes tremer {
+.sprite-inimigo {
+  top: 30px;
+  right: 70px;
+  width: 140px;
+  height: 140px;
+}
+
+.sprite-jogador {
+  bottom: 40px;
+  left: 70px;
+  width: 160px;
+  height: 160px;
+}
+
+.sprite.desmaia {
+  transform: translateY(40px);
+  opacity: 0;
+}
+
+.entra { animation: entra 0.5s ease-out; }
+.entra-jogador { animation: entra-jogador 0.5s ease-out; }
+.ataca-jogador { animation: ataca-jogador 0.4s ease-in-out; }
+.ataca-inimigo { animation: ataca-inimigo 0.4s ease-in-out; }
+.pisca { animation: pisca 0.6s steps(2, start) 1; }
+.treme { animation: treme 0.4s; }
+.desmaia-jogador { animation: desmaia-jogador 0.7s ease-in forwards; }
+
+@keyframes entra {
+  from { opacity: 0; transform: translateX(70px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes entra-jogador {
+  from { opacity: 0; transform: translateX(-70px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ataca-jogador {
+  50% { transform: translate(60px, -8px); }
+}
+
+@keyframes ataca-inimigo {
+  50% { transform: translate(-60px, 8px); }
+}
+
+@keyframes pisca {
+  50% { opacity: 0.15; }
+}
+
+@keyframes treme {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-10px); }
   75% { transform: translateX(10px); }
+}
+
+@keyframes desmaia-jogador {
+  to { transform: translateY(40px); opacity: 0; }
+}
+
+/* Número de dano que sobe e some */
+.dano {
+  position: absolute;
+  left: 150px;
+  bottom: 250px;
+  font-family: var(--pixel);
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 2px 2px 0 var(--ink-deep);
+  pointer-events: none;
+  animation: sobe 0.9s ease-out forwards;
+}
+
+@keyframes sobe {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-40px); opacity: 0; }
 }
 
 /* ---------- Caixas de status ---------- */
@@ -142,7 +202,7 @@ h1 {
 }
 
 .info-inimigo { top: 14px; left: 14px; }
-.info-jogador { bottom: 18px; right: 14px; }
+.info-jogador { bottom: 18px; right: 14px; min-width: 270px; }
 
 .info-linha {
   display: flex;
@@ -159,6 +219,7 @@ h1 {
 }
 
 .nome-oculto { color: var(--ink-soft); }
+.nome-oculto.revelado { color: var(--ink); }
 
 .hp-numeros {
   font-family: var(--pixel);
@@ -172,13 +233,13 @@ h1 {
   padding: 4px 8px;
   border: 2px solid var(--ink);
   border-radius: 6px;
-  color: #1a1a24;
+  color: var(--ink-deep);
   background: #ddd;
   white-space: nowrap;
 }
 
 .tipo.tipo-processamento { background: var(--tipo-processamento); }
-.tipo.tipo-memoria { background: var(--tipo-memoria); color: #1a1a24; }
+.tipo.tipo-memoria { background: var(--tipo-memoria); color: var(--ink-deep); }
 .tipo.tipo-armazenamento { background: var(--tipo-armazenamento); }
 .tipo.tipo-comunicacao { background: var(--tipo-comunicacao); }
 
@@ -213,7 +274,6 @@ h1 {
   transition: width 0.45s ease, background 0.3s;
 }
 
-.barra-vida.jogador { background: linear-gradient(180deg, #9cf59c 0%, var(--hp-green) 50%, #2aa52a 100%); }
 .barra-vida.baixa { background: linear-gradient(180deg, #ffb0a0 0%, var(--hp-red) 50%, #b02020 100%); }
 
 /* ---------- Painel de comandos ---------- */
@@ -226,7 +286,7 @@ h1 {
 
 .caixa-texto {
   position: relative;
-  min-height: 170px;
+  min-height: 190px;
   padding: 16px 18px;
   background: var(--paper);
   border: 4px solid var(--ink);
@@ -235,17 +295,12 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.instrucao {
-  margin: 0;
-  font-size: 22px;
-  line-height: 1.2;
+  cursor: pointer;
 }
 
 .mensagem {
   margin: 0;
-  min-height: 1.3em;
+  min-height: 2.4em;
   font-size: 22px;
   line-height: 1.2;
 }
@@ -271,12 +326,13 @@ h1 {
 
 .opcao {
   font-family: var(--pixel);
-  font-size: 12px;
+  font-size: 11px;
+  letter-spacing: -1px;
   line-height: 1.4;
   min-height: 62px;
   padding: 10px 8px;
   overflow-wrap: anywhere;
-  color: #1a1a24;
+  color: var(--ink-deep);
   background: var(--paper);
   border: 4px solid var(--ink);
   border-radius: 10px;
@@ -294,6 +350,7 @@ h1 {
 .opcao:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 2px 0 var(--ink); }
 .opcao:focus-visible { outline: 3px solid var(--hp-yellow); outline-offset: 3px; }
 .opcao:disabled { cursor: default; filter: grayscale(0.5) brightness(0.8); transform: none; }
+.opcao.escolhida { outline: 3px dashed var(--ink-deep); outline-offset: 3px; }
 .opcao.certa { filter: none; outline: 4px solid #fff; outline-offset: 2px; }
 .opcao.errada { filter: grayscale(1) brightness(0.6); }
 
@@ -302,7 +359,7 @@ h1 {
 .botao-reiniciar {
   font-family: var(--pixel);
   font-size: 11px;
-  color: var(--ink);
+  color: var(--ink-deep);
   background: var(--hp-yellow);
   border: 3px solid var(--ink);
   border-radius: 8px;
@@ -365,34 +422,33 @@ h1 {
     display: grid;
     gap: 12px;
     padding: 12px;
-    background:
-      linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 50%, #cdf2a8 50%, #b8e88a 100%);
+    background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 50%, #cdf2a8 50%, #b8e88a 100%);
   }
 
   .info,
   .plataforma,
-  .avatar {
+  .sprite {
     position: static;
   }
 
   .info { width: 100%; min-width: 0; }
 
-  .avatar {
+  .sprite-inimigo,
+  .sprite-jogador {
     justify-self: center;
-    width: 104px;
-    height: 104px;
-    font-size: 36px;
+    width: 120px;
+    height: 120px;
     margin: 4px 0;
   }
 
-  .plataforma {
+  .plataforma-inimigo,
+  .plataforma-jogador {
     justify-self: center;
     width: 180px;
     height: 36px;
   }
 
-  .plataforma-inimigo,
-  .plataforma-jogador { width: 180px; height: 36px; }
+  .dano { left: 50%; bottom: auto; top: 40%; }
 
   .base { grid-template-columns: 1fr; }
   .opcoes { grid-template-columns: 1fr 1fr; }
