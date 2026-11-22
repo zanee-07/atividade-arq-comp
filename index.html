@@ -13,18 +13,18 @@
   <main class="jogo">
     <header class="cabecalho">
       <h1>Batalha de Arquitetura</h1>
-      <p class="placar">Derrotados <strong id="derrotados">0</strong>/<strong id="total">16</strong> · Pontos <strong id="pontos">0</strong></p>
+      <p class="placar">Inimigos <strong id="derrotados">0</strong>/<strong id="total">8</strong> · Time <strong id="time">0</strong> · Pontos <strong id="pontos">0</strong></p>
     </header>
 
     <section class="campo" id="campo" aria-label="Campo de batalha">
       <div class="info info-inimigo">
         <div class="info-linha">
-          <span class="nome-oculto">???</span>
+          <span id="nome-inimigo" class="nome-oculto">???</span>
           <span id="tipo-inimigo" class="tipo">Tipo: ?</span>
         </div>
         <div class="info-hp">
           <span class="hp-rotulo">HP</span>
-          <div class="barra" role="progressbar" aria-label="Vida do inimigo">
+          <div class="barra" role="img" aria-label="Vida do inimigo">
             <div class="barra-vida" id="vida-inimigo"></div>
           </div>
         </div>
@@ -39,11 +39,11 @@
       <div class="info info-jogador">
         <div class="info-linha">
           <span id="nome-jogador" class="nome-jogador">Seu time</span>
-          <span id="vida-jogador-texto" class="hp-numeros">HP 100</span>
+          <span id="vida-jogador-texto" class="hp-numeros">100/100</span>
         </div>
         <div class="info-hp">
           <span class="hp-rotulo">HP</span>
-          <div class="barra" role="progressbar" aria-label="Sua vida">
+          <div class="barra" role="img" aria-label="Sua vida">
             <div class="barra-vida jogador" id="vida-jogador"></div>
           </div>
         </div>
@@ -51,10 +51,11 @@
     </section>
 
     <section class="base" aria-label="Painel de escolhas">
-      <div class="caixa-texto" id="caixa-texto">
-        <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
+      <div class="caixa-texto" id="caixa-texto" tabindex="0" title="Clique ou pressione Enter para mostrar o texto inteiro">
         <p id="pista" class="pista" hidden></p>
-        <button id="btn-pista" class="botao-pista" type="button">Revelar pista (−10 HP)</button>
+        <p id="mensagem" class="mensagem"></p>
+        <p id="tempo" class="tempo" aria-hidden="true"></p>
+        <p id="anuncio" class="sr-only" role="status" aria-live="polite"></p>
       </div>
       <div id="opcoes" class="opcoes"></div>
     </section>
