@@ -4,51 +4,69 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Batalha de Arquitetura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="game">
-    <header class="topo">
+  <main class="jogo">
+    <header class="cabecalho">
       <h1>Batalha de Arquitetura</h1>
-      <p class="contador">Derrotados: <strong id="derrotados">0</strong> de <strong id="total">16</strong></p>
+      <p class="placar">Derrotados <strong id="derrotados">0</strong>/<strong id="total">16</strong> · Pontos <strong id="pontos">0</strong></p>
     </header>
 
-    <section class="painel inimigo">
-      <div class="linha-topo">
-        <span class="rotulo">Inimigo</span>
-        <span id="tipo-inimigo" class="tipo">Tipo: ?</span>
+    <section class="campo" aria-label="Campo de batalha">
+      <div class="info info-inimigo">
+        <div class="info-linha">
+          <span id="nome-inimigo" class="nome-oculto">???</span>
+          <span id="tipo-inimigo" class="tipo">Tipo: ?</span>
+        </div>
+        <div class="info-hp">
+          <span class="hp-rotulo">HP</span>
+          <div class="barra" role="progressbar" aria-label="Vida do inimigo">
+            <div class="barra-vida" id="vida-inimigo"></div>
+          </div>
+        </div>
       </div>
+
+      <div class="plataforma plataforma-inimigo" aria-hidden="true"></div>
       <div class="avatar" id="avatar-inimigo" aria-hidden="true">?</div>
-      <p class="nome-oculto">???</p>
-      <p class="instrucao">Qual criatura do seu time derrota este inimigo?</p>
-      <div class="barra" role="progressbar" aria-label="Vida do inimigo">
-        <div class="barra-vida" id="vida-inimigo"></div>
+
+      <div class="plataforma plataforma-jogador" aria-hidden="true"></div>
+
+      <div class="info info-jogador">
+        <div class="info-linha">
+          <span class="nome-jogador">Você</span>
+          <span id="vida-jogador-texto" class="hp-numeros">HP 100</span>
+        </div>
+        <div class="info-hp">
+          <span class="hp-rotulo">HP</span>
+          <div class="barra" role="progressbar" aria-label="Sua vida">
+            <div class="barra-vida jogador" id="vida-jogador"></div>
+          </div>
+        </div>
       </div>
-      <p id="pista" class="pista" hidden></p>
-      <button id="btn-pista" class="botao secundario" type="button">Revelar pista (−10 HP)</button>
     </section>
 
-    <section class="painel time">
-      <div class="linha-topo">
-        <span class="rotulo">Seu time</span>
-        <span id="vida-jogador-texto" class="tipo">HP 100</span>
-      </div>
-      <div class="barra" role="progressbar" aria-label="Sua vida">
-        <div class="barra-vida jogador" id="vida-jogador"></div>
+    <section class="base" aria-label="Painel de escolhas">
+      <div class="caixa-texto">
+        <p class="instrucao">Qual criatura do seu time derrota este inimigo?</p>
+        <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
+        <p id="pista" class="pista" hidden></p>
+        <button id="btn-pista" class="botao-pista" type="button">Revelar pista (−10 HP)</button>
       </div>
       <div id="opcoes" class="opcoes"></div>
-      <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
-      <p class="pontos">Pontos: <strong id="pontos">0</strong></p>
     </section>
 
     <div class="acoes">
-      <button id="btn-reiniciar" class="botao" type="button">Reiniciar</button>
+      <button id="btn-reiniciar" class="botao-reiniciar" type="button">Reiniciar</button>
     </div>
 
     <dialog id="fim" class="fim">
       <h2 id="fim-titulo"></h2>
       <p id="fim-texto"></p>
-      <button id="fim-reiniciar" class="botao" type="button">Jogar de novo</button>
+      <button id="fim-reiniciar" class="botao-pista" type="button">Jogar de novo</button>
     </dialog>
   </main>
   <script src="termos.js"></script>
